@@ -19,11 +19,17 @@ function Main(props) {
         setUserDescription(response.about);
         setUserAvatar(response.avatar);
       })
+      .catch((err) => {
+        console.log(err);
+      });
 
       api.getInitialCards()
       .then(response => {
         const reversedItems = response.reverse();
         setCards(reversedItems)
+      })
+      .catch((err) => {
+        console.log(err);
       });
     }
 
