@@ -88,7 +88,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 **Примененные технологии**
 
 В проекте применены следующие технологии:
-1. тенохлогия выравнивания и построения сетки при помощи flex и grid;
+1. технология выравнивания и построения сетки при помощи flex и grid;
 2. файловая структура оформлена по правилам Nested БЭМ;
 3. адаптивная верстка под разные разрешения экранов: для больших и стандартных экранов мониторов и ноутбуков, для планшетов и мобильных утройств;
 4. технология переполнения текстового содержимого в блоке при помощи комбинаций правил css;
@@ -99,7 +99,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 **GitHub Pages**
 
-* [Ссылка на GitHub Pages](https://tatyanadudchenko.github.io/mesto-ract/index.html)
+* [Ссылка на GitHub Pages](https://tatyanadudchenko.github.io/mesto-react/index.html)
 
 
 Приятного просмотра и пользования!
