@@ -6,6 +6,8 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 
 function App() {
@@ -53,6 +55,28 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
+  function handleUpdateUser(props) {
+    api.editProfile(props)
+    .then(response => {
+      setСurrentUser(response); //response.name, response.about, response.avatar
+    })
+    .then(() => closeAllPopups())
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function handleUpdateAvatar(props) {
+    api.updatedAvatar(props)
+    .then(response => {
+      setСurrentUser(response); //response.name, response.about, response.avatar
+    })
+    .then(() => closeAllPopups())
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="background">
@@ -65,20 +89,10 @@ function App() {
         onCardClick={handleCardClick}
         handleCardClick={handleCardClick} />
       <Footer />
-      <PopupWithForm
-        title={"Редактировать профиль"}
-        name={"edit"}
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}>
-        <label className="popup__form-field">
-          <input type="text" placeholder="Имя" name="name" className="popup__input popup__input_name" id="name-input" minLength="2" maxLength="40" required/>
-          <span className="name-input-error popup__input-error"></span>
-        </label>
-        <label className="popup__form-field">
-          <input type="text" placeholder="Занятие" name="about" className="popup__input popup__input_job" id="job-input" minLength="2" maxLength="200" required/>
-          <span className="job-input-error popup__input-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditProfilePopup 
+        isOpen={isEditProfilePopupOpen} 
+        onClose={closeAllPopups} 
+        onUpdateUser={handleUpdateUser} />
       <PopupWithForm
         title={"Новое место"}
         name={"add"}
@@ -94,16 +108,10 @@ function App() {
           <span className="link-input-error popup__input-error"></span>
         </label>
       </PopupWithForm>
-      <PopupWithForm
-        title={"Обновить аватар"}
-        name={"edit-avatar"}
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}>
-        <label className="popup__form-field">
-          <input type="url" placeholder="Ссылка на картинку" name="link" className="popup__input popup__input_link" id="link-inp" required/>
-          <span className="link-inp-error popup__input-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditAvatarPopup 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar} />
       <PopupWithForm
         title={"Вы уверены?"}
         name={"confirm"} />

@@ -1,11 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import api from "../utils/Api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, handleCardClick }) {
-    const currentUser = React.useContext(CurrentUserContext);
+    const currentUser = useContext(CurrentUserContext);
 
     const [cards, setCards] = useState([]);
   
