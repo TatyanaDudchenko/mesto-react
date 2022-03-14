@@ -33,6 +33,21 @@ function App() {
     });
   }, [])
 
+  // эффект закрытия модальных окон с помощью клавиши Escape
+  useEffect(() => {
+    if (isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || isImagePopupOpen) {
+      document.addEventListener('keydown', handleEscClose)
+      return () => document.removeEventListener('keydown', handleEscClose)
+    
+      function handleEscClose(evt) {
+        if (evt.key === 'Escape') {
+          closeAllPopups();
+        };
+      }
+    }
+    
+  }, [isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || isImagePopupOpen])
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
