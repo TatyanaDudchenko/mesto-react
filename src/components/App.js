@@ -20,15 +20,17 @@ function App() {
   
   const [currentUser, setСurrentUser] = useState({});
 
+  const [cards, setCards] = useState([]);
+
   useEffect(() => {
-    api.getUserData()
-    .then(response => {
-      setСurrentUser(response); //response.name, response.about, response.avatar
+      Promise.all([api.getUserData(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+      setСurrentUser(userData)
+      setCards(cards)
     })
     .catch((err) => {
       console.log(err);
     });
-
   }, [])
 
   function handleEditAvatarClick() {
@@ -57,8 +59,8 @@ function App() {
 
   function handleUpdateUser(props) {
     api.editProfile(props)
-    .then(response => {
-      setСurrentUser(response); //response.name, response.about, response.avatar
+    .then(userData => {
+      setСurrentUser(userData);
     })
     .then(() => closeAllPopups())
     .catch((err) => {
@@ -68,27 +70,14 @@ function App() {
 
   function handleUpdateAvatar(props) {
     api.updatedAvatar(props)
-    .then(response => {
-      setСurrentUser(response); //response.name, response.about, response.avatar
+    .then(userData => {
+      setСurrentUser(userData);
     })
     .then(() => closeAllPopups())
     .catch((err) => {
       console.log(err);
     });
   }
-
-  const [cards, setCards] = useState([]);
-  
-    useEffect(() => {
-      
-      api.getInitialCards()
-      .then(response => {
-        setCards(response)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }, [])
 
     function handleCardLike(card) {
       // Снова проверяем, есть ли уже лайк на этой карточке
@@ -117,7 +106,7 @@ function App() {
 
     function handleCardDelete(card) {
       api.deleteCard(card._id)
-      .then(response => {
+      .then(deletedCardData => {
         setCards((cards) => cards.filter((c) => c._id !== card._id));
       })
       .catch((err) => {
@@ -127,8 +116,8 @@ function App() {
 
     function handleAddPlaceSubmit(card) {
       api.createNewCard(card)
-      .then(response => {
-        setCards([response, ...cards]);
+      .then(newCard => {
+        setCards([newCard, ...cards]);
       })
       .then(() => closeAllPopups())
       .catch((err) => {
