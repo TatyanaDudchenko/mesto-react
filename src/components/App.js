@@ -46,7 +46,7 @@ function App() {
       }
     }
     
-  }, [isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || isImagePopupOpen])
+  }, [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isImagePopupOpen])
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
